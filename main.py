@@ -25,12 +25,11 @@ vocab_size = len(vocab)
 emsize = 64  # Here, you can modify the code to change the embedding size.
 
 # Model. You can change the model to TextClassificationModel, OneLayerFFNN, TwoLayerFFNN, ThreeLayerFFNN
-model = TextClassificationModel(vocab_size, emsize, num_class).to(device)
+model = ThreeLayerFFNN(vocab_size, emsize, num_class).to(device)
 
 # Hyperparameters
-
 EPOCHS = 50  # epoch
-LR = 5  # learning rate
+LR = 0.0001  # learning rate
 BATCH_SIZE = 64  # batch size for training
 OPTIMIZERS = {
     "SGD": torch.optim.SGD,
@@ -105,5 +104,7 @@ ex_text_str = "MEMPHIS, Tenn. – Four days ago, Jon Rahm was \
     finished with an 8-under 62 for a three-stroke lead, which \
     was even more impressive considering he’d never played the \
     front nine at TPC Southwind."
+
+model = model.to("cpu")
 
 print("This is a %s news" % ag_news_label[predict(model, ex_text_str, text_pipeline)])
